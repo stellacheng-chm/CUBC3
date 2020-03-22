@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>基督教協基會社會服務部存貨系統</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Noto Sans TC' rel='stylesheet'>
+
+
+  <style>
+    body {
+      margin: 0 0 55px 0;
+      background-color: #f1e5e8;
+      font-family: "Noto Sans TC";
+    }
+
+    .bottomnav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 55px;
+      box-shadow: 0 0 0px rgba(255, 255, 255, 0);
+      background-color: #dee7ee;
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .nav__link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      min-width: 50px;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: "Noto Sans TC";
+      font-size: 15px;
+      color: #444444;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.1s ease-in-out;
+    }
+
+    /* .nav__link:hover {
+      background-color: #eeeeee;
+    } */
+    .center {
+      text-align: center;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+    }
+
+    .center2 {
+      text-align: center;
+      display: block;
+      margin-left: 34px;
+      margin-right: auto;
+      width: 90%;
+    }
+
+    #outer {
+      width: 100%;
+      text-align: center;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    
+
+    table thead tr td {
+      border-color: 1px solid red;
+    }
+
+    .black {
+      border: 1px solid rgb(0, 0, 0);
+    }
+
+    .tr2{
+      border:2px solid rgb(0, 0, 0);
+      border-left:hidden;
+      border-right:hidden;
+    }
+
+
+
+    table.table-bordered {
+      border: 1px solid rgb(0, 0, 0);
+      margin-top: 20px;
+    }
+
+    table.table-bordered>thead>tr>th {
+      border: 2px solid rgb(0, 0, 0);
+    }
+
+    .square {
+      width: 300px;
+      height: 30px;
+      border: 1px solid rgb(0, 0, 0);
+    }
+
+    .square2 {
+      width: 300px;
+      height: 50px;
+      border: 1px solid rgb(0, 0, 0);
+    }
+
+    table.table-bordered>tbody>tr>td {
+      border: 2px solid rgb(0, 0, 0);
+    }
+
+    .inner {
+      display: inline-block;
+      width: 40%;
+
+    }
+
+    .inner2 {
+      display: inline-block;
+      width: 40%;
+
+    }
+
+    .button {
+      background-color: white;
+      width: 200px;
+      color: black;
+      border: 2px solid rgb(0, 0, 0);
+
+    }
+
+    .center3 {
+      text-align: center;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+    }
+
+    .responsive {
+      width: 100%;
+      height: auto;
+    }
+
+    .nav__icon {
+      font-size: 18px;
+    }
+
+    #admintable {
+      counter-reset: rowNumber;
+    }
+
+    #admintable th {
+      counter-increment: rowNumber;
+    }
+
+    #admintable th:first-child::before {
+      content: counter(rowNumber);
+    }
+
+    .class3 {
+      background-color: lightsalmon
+    }
+
+    .admin {
+      font-weight: bolder;
+    }
+
+    #adminestate {
+
+      float: right;
+    }
+
+    #edit {
+      color: blue;
+      float: right;
+    }
+
+    #title {
+      color: blue;
+      font-weight: bolder;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      text-align: justify;
+    }
+
+    #photo {
+      float: left;
+    }
+
+    #info {
+      text-align: center;
+      display: inline;
+    }
+
+    #briefinfo {
+      font-weight: bolder;
+    }
+
+    #dtitle {
+      font-size: 50px;
+      font-weight: bolder;
+    }
+
+    #detail {
+      text-align: left;
+    }
+
+    #deleteid {
+      display: none;
+    }
+  </style>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+  <%/* <meta name="robots" content="noindex"> */%>
+
+
+  <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/importer.css">
+  <!--STYLES END-->
+</head>
+
+<!-- <body onload="pageLoaded()">
+  <div class="container">
+    <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/apartment/paginate/">Search <span
+              class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link active" href="/apartment/create">Create</a>
+          <a class="nav-item nav-link active" href="/apartment/admin">Admin</a>
+        </div>
+      </div>
+      <a class="login" href="/user/login">Login</a>
+      <a class="logout" href="/user/logout"> Logout</a>
+      <!-- <div><%=req.session.username%></div> -->
+<!-- </nav>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Real Estate Rental System</h1>
+        <p class="lead">Real Estate Rental Management System is a web-based system to facilitate flatshare and
+          finding roommates.</p>
+      </div>
+    </div> -->
+<%- body %>
+
+
+
+
+
+<!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone
+        require that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different view engine (handlebars, dust, pug/jade, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+<!--TEMPLATES-->
+<!--TEMPLATES END-->
+
+
+<!--
+        Server-side View Locals
+        ========================
+
+        Sometimes, it's convenient to get access to your server-side view locals from
+        client-side JavaScript.  This can improve page load times, remove the need for
+        extra AJAX requests, and make your client-side code easier to understand and
+        to maintain.  Sails provides a simple mechanism for accessing dynamic view
+        locals: the "exposeLocalsToBrowser()" view partial.
+
+        For more information on using this built-in feature, see:
+        https://sailsjs.com/docs/concepts/views/locals#?escaping-untrusted-data-using-exposelocalstobrowser
+
+    -->
+
+
+<!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+<!--SCRIPTS-->
+<script src="/dependencies/sails.io.js"></script>
+<!--SCRIPTS END-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
